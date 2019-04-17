@@ -1,0 +1,93 @@
+<html>
+  <body>
+    <h2>
+      US brewery search
+    </h2>
+
+    <input type="text" />
+
+    <h3>results:</h3>
+    <div id="result"></div>
+
+    <script>
+      const input = document.querySelector('input');
+      const result = document.getElementById('result');
+
+      const displayData = data => {
+        // prep data
+        const names = data.map(x => x.name + ' - ' + x.city);
+        // prep DOM
+        result.innerHTML = '';
+        const list = document.createElement('ul');
+
+        names.forEach(name => {
+          const li = document.createElement('li');
+          li.innerHTML = name;
+          list.appendChild(li);
+        });
+
+        result.appendChild(list);
+      };
+
+      const fetchAndDisplay = () => {
+        fetch(`https://api.openbrewerydb.org/breweries?by_name=${input.value}`)
+          .then(response => response.json())
+          .then(data => displayData(data));
+      };
+
+      // version with immediate
+
+      // function debounce(callback, wait, immediate = false) {
+      //   let timeout = null;
+
+      //   return function() {
+      //     const callNow = immediate && !timeout;
+      //     const next = () => callback.apply(this, arguments);
+
+      //     clearTimeout(timeout);
+      //     timeout = setTimeout(next, wait);
+
+      //     if (callNow) {
+      //       next();
+      //     }
+      //   };
+      // }
+
+      // const handleFetch = debounce(() => fetchAndDisplay(), 100, true);
+
+      // version without immediate
+
+      const debounceEvent = (callback, time) => {
+        let interval;
+        return (...args) => {
+          clearTimeout(interval);
+          interval = setTimeout(() => {
+            interval = null;
+            callback(...args);
+          }, time);
+        };
+      };
+
+      const handleFetch = debounceEvent(() => fetchAndDisplay(), 300);
+
+      input.addEventListener('input', () => handleFetch());
+
+      // basic case
+
+      // function simpleDebounce(cb, time) {
+      //   let waitingTimeout;
+      //   return (...args) => {
+      //     clearTimeout(waitingTimeout);
+      //     waitingTimeout = setTimeout(() => {
+      //       waitingTimeout = null;
+      //       cb(...args);
+      //     }, time);
+      //   };
+      // }
+
+      // const handleStuff = simpleDebounce(() => console.log('biatch'), 500);
+
+      // input.addEventListener('input', () => handleStuff());
+    </script>
+  </body>
+</html>

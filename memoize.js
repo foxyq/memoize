@@ -8,11 +8,11 @@ const memoize = fn => {
   };
 };
 
-function factorial(num) {
+const factorial = num => {
   if (num === 1 || num === 0) return 1;
 
   return num * factorial(num - 1);
-}
+};
 
 const memoizedFactorial = memoize(factorial);
 const memoizedSqrt = memoize(Math.sqrt);

@@ -16,7 +16,7 @@ const pipe = (...functions) => {
   return mix;
 };
 
-const priceForTwoInUsd = pipeHelper(splitForTwo, convertToUsd);
+// const priceForTwoInUsd = pipeHelper(splitForTwo, convertToUsd);
 const taxForTwoInUsd = pipe(
   addTax,
   addTip,
