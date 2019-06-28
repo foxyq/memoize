@@ -1,38 +1,36 @@
-var permute = function(nums) {
+const permute = function(nums) {
   //nums are distinct numbers.
-  var numsLen = nums.length,
+  const numsLen = nums.length,
     result = [];
 
-  function getPermutations(workingArr, candidateArray) {
-    var candidateArrayLen = candidateArray.length;
+  const getPermutations = (workingArr, candidateArray) => {
+    const candidateArrayLen = candidateArray.length;
 
     if (candidateArrayLen < 1) {
       result.push(workingArr.slice()); //Here we must do a copy. Because an array is an object, every time we're passing its reference into a new function.
     } else {
       for (let index = 0; index < candidateArrayLen; index++) {
-        var nextCandidate = candidateArray.slice(); //Same reason, array is object, copy is needed.
+        const nextCandidate = candidateArray.slice(); //Same reason, array is object, copy is needed.
         workingArr.push(candidateArray[index]);
         nextCandidate.splice(index, 1);
         getPermutations(workingArr, nextCandidate);
         workingArr.pop();
       }
     }
-  }
+  };
 
   getPermutations([], nums);
   return result;
 };
 
-console.log(permute(['a', 'b', 'c']));
+// console.log(permute(['a', 'b', 'c']));
 
-var permuteUnique = function(nums) {
-  let res = new Map();
+const permuteUnique = function(nums) {
+  let res = new Set();
 
   const permutations = (arr, start, end) => {
     if (start === end) {
-      if (!res.get(arr)) {
-        res.set(arr.toString(), true);
-      }
+      res.add(arr.toString());
     } else {
       for (let index = start; index <= end; index++) {
         [arr[index], arr[start]] = [arr[start], arr[index]];
@@ -45,14 +43,12 @@ var permuteUnique = function(nums) {
   permutations(nums, 0, nums.length - 1);
 
   const result = [];
-
-  res.forEach((val, key) => result.push(key.split(',')));
+  [...res.values()].forEach(val => result.push(val.split(',')));
 
   return result;
-  // return res;
 };
 
-// console.log(permuteUnique([2, 3, 2]));
+console.log(permuteUnique([2, 3, 2]));
 
 const nextPermutation = nums => {
   const len = nums.length;

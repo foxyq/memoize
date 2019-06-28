@@ -35,7 +35,7 @@
           .then(data => displayData(data));
       };
 
-      // version with immediate
+      // version with immediate run
 
       // function debounce(callback, wait, immediate = false) {
       //   let timeout = null;
@@ -59,6 +59,7 @@
 
       const debounceEvent = (callback, time) => {
         let interval;
+
         return (...args) => {
           clearTimeout(interval);
           interval = setTimeout(() => {
@@ -71,23 +72,6 @@
       const handleFetch = debounceEvent(() => fetchAndDisplay(), 300);
 
       input.addEventListener('input', () => handleFetch());
-
-      // basic case
-
-      // function simpleDebounce(cb, time) {
-      //   let waitingTimeout;
-      //   return (...args) => {
-      //     clearTimeout(waitingTimeout);
-      //     waitingTimeout = setTimeout(() => {
-      //       waitingTimeout = null;
-      //       cb(...args);
-      //     }, time);
-      //   };
-      // }
-
-      // const handleStuff = simpleDebounce(() => console.log('biatch'), 500);
-
-      // input.addEventListener('input', () => handleStuff());
     </script>
   </body>
 </html>

@@ -11,20 +11,15 @@ const permute = string => {
     const after = string.substr(i + 1);
 
     const permutations = permute(before + after);
-    // console.log(permutations);
 
     permutations.forEach(permutation => {
       result.push(string[i] + permutation);
     });
-
-    // console.log('result ' + result);
-    // console.log('***');
   }
 
   return result;
 };
 
-// console.log(permute('')); // [])
 console.log(
   permute('abc') // ['abc', 'acb', 'bac', 'bca', 'cab', 'cba']
 );

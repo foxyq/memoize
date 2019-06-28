@@ -223,17 +223,17 @@
 // console.log(isBalanced('foo { bar } }')); // false));
 
 const fib = num => {
-  const table = new Map();
+  const cache = {};
 
-  table.set(0, 0);
-  table.set(1, 1);
+  cache[0] = 0;
+  cache[1] = 1;
 
   const getFib = num => {
-    let f = table.get(num);
+    let f = cache[num];
 
     if (f === undefined) {
       f = getFib(num - 1) + getFib(num - 2);
-      table.set(num, f);
+      cache[num] = f;
     }
 
     return f;
@@ -242,4 +242,4 @@ const fib = num => {
   return getFib(num);
 };
 
-console.log(fib(80));
+console.log(fib(8));

@@ -23,4 +23,6 @@ const multiply = (x, y) => {
   }
 };
 
-console.log(multiply(-3, 6));
+console.log(multiply(-3, 6) === -18);
+console.log(multiply(3, 6) === 18);
+console.log(multiply(-3, -6) === 18);

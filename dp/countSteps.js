@@ -17,4 +17,4 @@ const countSteps = n => {
   return runUp(n);
 };
 
-console.log(countSteps(37));
+console.log(countSteps(4));
